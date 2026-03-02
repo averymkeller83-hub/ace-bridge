@@ -1,0 +1,10 @@
+{
+  "commands": [
+    {
+      "id": "cmd-001",
+      "command": "open",
+      "args": ["chrome"],
+      "description": "Open Chrome browser"
+    }
+  ]
+}
