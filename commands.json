@@ -3,104 +3,26 @@
     {
       "id": "cmd-001",
       "command": "open",
-      "args": ["sheets.new"],
-      "description": "Create new Google Sheet"
+      "args": ["chrome"],
+      "description": "Open Chrome"
     },
     {
       "id": "cmd-002",
       "command": "sleep",
-      "args": ["5"],
-      "description": "Wait for sheet to load"
+      "args": ["3"],
+      "description": "Wait for Chrome"
     },
     {
       "id": "cmd-003",
       "command": "type",
-      "args": ["ClawWork Profit Dashboard"],
-      "description": "Title in A1"
+      "args": ["bade"],
+      "description": "Search for bade"
     },
     {
       "id": "cmd-004",
       "command": "key",
       "args": ["return"],
-      "description": "Next row"
-    },
-    {
-      "id": "cmd-005",
-      "command": "type",
-      "args": ["Date"],
-      "description": "Header A2"
-    },
-    {
-      "id": "cmd-006",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to B2"
-    },
-    {
-      "id": "cmd-007",
-      "command": "type",
-      "args": ["Task ID"],
-      "description": "Header B2"
-    },
-    {
-      "id": "cmd-008",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to C2"
-    },
-    {
-      "id": "cmd-009",
-      "command": "type",
-      "args": ["Type"],
-      "description": "Header C2"
-    },
-    {
-      "id": "cmd-010",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to D2"
-    },
-    {
-      "id": "cmd-011",
-      "command": "type",
-      "args": ["Client"],
-      "description": "Header D2"
-    },
-    {
-      "id": "cmd-012",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to E2"
-    },
-    {
-      "id": "cmd-013",
-      "command": "type",
-      "args": ["Revenue"],
-      "description": "Header E2"
-    },
-    {
-      "id": "cmd-014",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to F2"
-    },
-    {
-      "id": "cmd-015",
-      "command": "type",
-      "args": ["Costs"],
-      "description": "Header F2"
-    },
-    {
-      "id": "cmd-016",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Move to G2"
-    },
-    {
-      "id": "cmd-017",
-      "command": "type",
-      "args": ["Profit"],
-      "description": "Header G2"
+      "description": "Press Enter to search"
     }
   ]
 }
