@@ -15,38 +15,26 @@
     {
       "id": "cmd-003",
       "command": "type",
-      "args": ["keyboard tester online"],
-      "description": "Type search query"
+      "args": ["sheets.google.com"],
+      "description": "Type Google Sheets URL"
     },
     {
       "id": "cmd-004",
       "command": "key",
       "args": ["return"],
-      "description": "Press Enter to search"
+      "description": "Press Enter to navigate"
     },
     {
       "id": "cmd-005",
       "command": "sleep",
-      "args": ["2"],
-      "description": "Wait for results"
+      "args": ["3"],
+      "description": "Wait for page to load"
     },
     {
       "id": "cmd-006",
-      "command": "key",
-      "args": ["tab"],
-      "description": "Press Tab to focus first result"
-    },
-    {
-      "id": "cmd-007",
-      "command": "sleep",
-      "args": ["1"],
-      "description": "Wait"
-    },
-    {
-      "id": "cmd-008",
-      "command": "key",
-      "args": ["return"],
-      "description": "Press Enter to open first result"
+      "command": "screenshot",
+      "args": ["sheets_loaded.png"],
+      "description": "Screenshot of Google Sheets"
     }
   ]
 }
