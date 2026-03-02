@@ -15,8 +15,26 @@
     {
       "id": "cmd-003",
       "command": "type",
-      "args": ["Avery I am here"],
-      "description": "Type message"
+      "args": ["keyboard tester online"],
+      "description": "Type search query"
+    },
+    {
+      "id": "cmd-004",
+      "command": "key",
+      "args": ["return"],
+      "description": "Press Enter to search"
+    },
+    {
+      "id": "cmd-005",
+      "command": "sleep",
+      "args": ["2"],
+      "description": "Wait for results"
+    },
+    {
+      "id": "cmd-006",
+      "command": "click",
+      "args": ["500", "300"],
+      "description": "Click first result (approximate coordinates)"
     }
   ]
 }
