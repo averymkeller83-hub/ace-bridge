@@ -2,21 +2,21 @@
   "commands": [
     {
       "id": "cmd-001",
-      "command": "open",
-      "args": ["chrome"],
-      "description": "Open Chrome browser"
+      "command": "click",
+      "args": ["500", "50"],
+      "description": "Click address bar"
     },
     {
       "id": "cmd-002",
-      "command": "sleep",
-      "args": ["3"],
-      "description": "Wait for Chrome to load"
+      "command": "key",
+      "args": ["ctrl", "a"],
+      "description": "Select all text in address bar"
     },
     {
       "id": "cmd-003",
       "command": "type",
-      "args": ["sheets.google.com"],
-      "description": "Type Google Sheets URL"
+      "args": ["sheets.new"],
+      "description": "Type new sheet URL"
     },
     {
       "id": "cmd-004",
@@ -27,14 +27,14 @@
     {
       "id": "cmd-005",
       "command": "sleep",
-      "args": ["3"],
-      "description": "Wait for page to load"
+      "args": ["5"],
+      "description": "Wait for new sheet to load"
     },
     {
       "id": "cmd-006",
       "command": "screenshot",
-      "args": ["sheets_loaded.png"],
-      "description": "Screenshot of Google Sheets"
+      "args": ["new_sheet.png"],
+      "description": "Screenshot of new sheet"
     }
   ]
 }
