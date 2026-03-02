@@ -74,7 +74,7 @@ def execute_command(cmd_data):
             
         elif command == "type":
             text = args[0] if args else ""
-            pyautogui.typewrite(text, interval=0.01)
+            pyautogui.typewrite(text, interval=0.05)  # Slower typing
             return {"success": True, "message": f"Typed: {text[:50]}..."}
             
         elif command == "click":
