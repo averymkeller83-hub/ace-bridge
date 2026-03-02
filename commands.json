@@ -3,38 +3,26 @@
     {
       "id": "cmd-001",
       "command": "click",
-      "args": ["500", "50"],
-      "description": "Click address bar"
+      "args": ["200", "300"],
+      "description": "Click cell A1"
     },
     {
       "id": "cmd-002",
-      "command": "key",
-      "args": ["ctrl", "a"],
-      "description": "Select all text in address bar"
+      "command": "type",
+      "args": ["Hello from Jarvis!"],
+      "description": "Type message in cell"
     },
     {
       "id": "cmd-003",
-      "command": "type",
-      "args": ["sheets.new"],
-      "description": "Type new sheet URL"
+      "command": "key",
+      "args": ["return"],
+      "description": "Press Enter to confirm"
     },
     {
       "id": "cmd-004",
-      "command": "key",
-      "args": ["return"],
-      "description": "Press Enter to navigate"
-    },
-    {
-      "id": "cmd-005",
-      "command": "sleep",
-      "args": ["5"],
-      "description": "Wait for new sheet to load"
-    },
-    {
-      "id": "cmd-006",
       "command": "screenshot",
-      "args": ["new_sheet.png"],
-      "description": "Screenshot of new sheet"
+      "args": ["sheet_with_text.png"],
+      "description": "Screenshot of result"
     }
   ]
 }
