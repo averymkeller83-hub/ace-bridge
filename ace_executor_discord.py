@@ -10,7 +10,7 @@ GITHUB_REPO = "averymkeller83-hub/ace-bridge"
 COMMANDS_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/commands.json"
 RESULTS_FILE = r"C:\Users\avery\ace-results.json"
 DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1478081972008910879/N-DlsEHCwlc8vg_mwsaZ2ao_EmTcgHi1-d9pMo1O_UksK5zTk97TQbmewSVWS2uMIdat"
-POLL_INTERVAL = 30  # seconds
+POLL_INTERVAL = 10  # seconds
 LAST_COMMAND_HASH = None
 
 print("=" * 50)
