@@ -1,0 +1,22 @@
+{
+  "commands": [
+    {
+      "id": "cmd-001",
+      "command": "open",
+      "args": ["chrome"],
+      "description": "Open Chrome browser"
+    },
+    {
+      "id": "cmd-002",
+      "command": "sleep",
+      "args": ["3"],
+      "description": "Wait for Chrome to load"
+    },
+    {
+      "id": "cmd-003",
+      "command": "type",
+      "args": ["Avery I am here"],
+      "description": "Type message"
+    }
+  ]
+}
