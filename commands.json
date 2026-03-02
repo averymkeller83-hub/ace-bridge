@@ -32,9 +32,21 @@
     },
     {
       "id": "cmd-006",
-      "command": "click",
-      "args": ["500", "300"],
-      "description": "Click first result (approximate coordinates)"
+      "command": "key",
+      "args": ["tab"],
+      "description": "Press Tab to focus first result"
+    },
+    {
+      "id": "cmd-007",
+      "command": "sleep",
+      "args": ["1"],
+      "description": "Wait"
+    },
+    {
+      "id": "cmd-008",
+      "command": "key",
+      "args": ["return"],
+      "description": "Press Enter to open first result"
     }
   ]
 }
