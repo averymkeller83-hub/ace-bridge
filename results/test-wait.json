@@ -1,0 +1,8 @@
+{
+  "id": "test-wait",
+  "command": "In Maestro click on the Auto Run tab in the right panel",
+  "timestamp": "2026-03-27T14:20:47.323009",
+  "result": {
+    "success": true
+  }
+}
