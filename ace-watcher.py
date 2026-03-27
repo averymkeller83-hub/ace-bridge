@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — uses Maestro's built-in Ace bar (Ctrl+Space)"""
+"""Ace Bridge Watcher — global Ace AI via Ctrl+Space, no app switching"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -11,7 +11,7 @@ PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 35
+DELAY_BETWEEN_COMMANDS = 40
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -26,24 +26,15 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """Activate Maestro, press Ctrl+Space ONCE to open Ace bar, type command, Enter"""
+    """Press Ctrl+Space to open Ace globally, type command, Enter"""
     try:
         safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
         script = f'''
--- Bring Maestro to front
-tell application "Maestro" to activate
-delay 1.5
-
 tell application "System Events"
-    -- Press Ctrl+Space ONCE to open Ace bar
     key code 49 using {{control down}}
-    -- Wait for bar to appear
-    delay 2.5
-    -- Type the command
+    delay 3
     keystroke "{safe}"
-    -- Wait for typing to finish
-    delay 1.5
-    -- Press Enter to submit
+    delay 2
     key code 36
 end tell
 '''
@@ -60,7 +51,7 @@ def push_to_github():
         subprocess.run(["git", "-C", str(REPO_PATH), "add", "-A"], capture_output=True)
         subprocess.run(["git", "-C", str(REPO_PATH), "commit", "-m", f"Results {datetime.now().isoformat()}"], capture_output=True)
         subprocess.run(["git", "-C", str(REPO_PATH), "push"], capture_output=True)
-        log("Pushed to GitHub")
+        log("Pushed")
     except: pass
 
 def process_command(cmd_file):
@@ -80,7 +71,7 @@ def process_command(cmd_file):
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Watcher started — Maestro Ctrl+Space bar, single trigger")
+log("Ace Watcher — global Ctrl+Space, no app switching")
 
 while True:
     try:
