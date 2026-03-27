@@ -1,0 +1,7 @@
+{
+  "id": "maestro-start-remaining",
+  "command": "In the Maestro app, start Auto Run for these 3 agents one at a time: 1) Click 'Clawwork Dashboard' in the left sidebar. Click the panel toggle icon top right. Click 'Auto Run' tab. Click 'Run' button. Click 'Go' in the dialog. Wait 3 seconds. 2) Click 'Magic Puffs' in the left sidebar. Click the panel toggle icon top right. Click 'Auto Run' tab. Click 'Run' button. Click 'Go' in the dialog. Wait 3 seconds. 3) Click 'Noise Agency' in the left sidebar. Click the panel toggle icon top right. Click 'Auto Run' tab. Click 'Run' button. Click 'Go' in the dialog.",
+  "args": [],
+  "timestamp": "2026-03-27T17:29:00Z",
+  "description": "Start remaining 3 Maestro agents"
+}
