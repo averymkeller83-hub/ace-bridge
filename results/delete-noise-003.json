@@ -1,0 +1,13 @@
+{
+  "id": "delete-noise-003",
+  "command": "Step 1: Click the Maestro app in the dock to open it. Step 2: Look at the left sidebar in Maestro. Step 3: Find the item that says 'Noise Agency'. Step 4: Control+click on it (hold Control key, then click). Step 5: A small popup menu appears - click 'Remove Agent'. Step 6: A dialog box appears - click 'Agent Only'.",
+  "args": [],
+  "timestamp": "2026-03-27T11:05:09.741645",
+  "result": {
+    "success": true,
+    "stdout": "",
+    "stderr": "",
+    "returncode": 0,
+    "prompt_sent": "Step 1: Click the Maestro app in the dock to open it. Step 2: Look at the left sidebar in Maestro. Step 3: Find the item that says 'Noise Agency'. Step 4: Control+click on it (hold Control key, then click). Step 5: A small popup menu appears - click 'Remove Agent'. Step 6: A dialog box appears - click 'Agent Only'."
+  }
+}
