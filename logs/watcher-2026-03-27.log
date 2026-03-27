@@ -2999,3 +2999,5 @@
 [2026-03-27 14:12:40] Sending to Ace: In Maestro click on Magic Puffs in the left sidebar
 [2026-03-27 14:12:40] Sending to Ace: In Maestro click on Magic Puffs in the left sidebar
 [2026-03-27 14:12:45] Done. Waiting 35s...
+[2026-03-27 14:12:45] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp8-step1.json'
+[2026-03-27 14:12:45] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp8-step1.json'
