@@ -2267,3 +2267,6 @@
 [2026-03-27 13:47:48] Sending to Ace: Click the Auto Run tab in the right panel of Maestro
 [2026-03-27 13:47:49] Processing command mp-autorun-tab: Click the Auto Run tab in the right panel of Maestro
 [2026-03-27 13:47:51] Command mp-autorun-tab completed. Result: True
+[2026-03-27 13:47:52] Results pushed to GitHub
+[2026-03-27 13:47:52] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp-autorun-tab.json'
+[2026-03-27 13:47:52] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp-autorun-tab.json'
