@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — activates Maestro first, then triggers Ace via Ctrl+Space"""
+"""Ace Bridge Watcher — types commands into Ace character by character"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -26,37 +26,25 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """1) Activate Maestro. 2) Open Ace via Ctrl+Space. 3) Paste command. 4) Enter."""
+    """Activate Maestro, open Ace, type command slowly, press Enter"""
     try:
-        # Copy command to clipboard
-        subprocess.run(["pbcopy"], input=command_text, text=True)
-        time.sleep(0.3)
+        # Escape special chars for AppleScript
+        safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
 
-        script = '''
--- Step 1: Bring Maestro to front
+        script = f'''
 tell application "Maestro" to activate
 delay 1.5
-
--- Step 2: Open Ace with Ctrl+Space
 tell application "System Events"
     key code 49 using control down
-end tell
-delay 2.5
-
--- Step 3: Paste command instantly
-tell application "System Events"
-    keystroke "v" using command down
-end tell
-delay 1.5
-
--- Step 4: Press Enter
-tell application "System Events"
+    delay 3
+    keystroke "{safe}" using {{}}
+    delay 2
     key code 36
 end tell
 '''
         result = subprocess.run(
             ["osascript", "-e", script],
-            capture_output=True, text=True, timeout=30
+            capture_output=True, text=True, timeout=60
         )
         return result.returncode == 0, result.stderr or "OK"
     except Exception as e:
@@ -76,11 +64,10 @@ def process_command(cmd_file):
             data = json.load(f)
         cmd_id = data.get("id", "unknown")
         command_text = data.get("command", "")
-        log(f"Sending to Ace: {command_text[:100]}")
+        log(f"Sending to Ace: {command_text[:80]}")
         success, output = send_to_ace(command_text)
-        result = {"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success, "output": output}}
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
-            json.dump(result, f, indent=2)
+            json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success}}, f, indent=2)
         shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
         log(f"Done. Waiting {DELAY_BETWEEN_COMMANDS}s...")
         push_to_github()
@@ -88,7 +75,7 @@ def process_command(cmd_file):
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Watcher started — Maestro focus first, then Ctrl+Space")
+log("Ace Watcher started — types commands slowly")
 
 while True:
     try:
