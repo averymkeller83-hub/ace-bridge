@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — longer delay after opening Ace"""
+"""Ace Bridge Watcher — one command at a time, no race conditions"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -10,8 +10,9 @@ COMMANDS_DIR = REPO_PATH / "commands"
 PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
+LOCK_FILE = REPO_PATH / ".processing"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 60
+WAIT_AFTER_COMMAND = 60
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -51,28 +52,41 @@ def push_to_github():
     except: pass
 
 def process_command(cmd_file):
+    # Lock — move file to processing location first
+    processing_file = COMMANDS_DIR / f"_processing_{cmd_file.name}"
     try:
-        with open(cmd_file) as f:
+        cmd_file.rename(processing_file)
+    except:
+        return  # Another process got it first
+
+    try:
+        with open(processing_file) as f:
             data = json.load(f)
         cmd_id = data.get("id", "unknown")
         command_text = data.get("command", "")
         log(f"Sending to Ace: {command_text[:80]}")
         success, output = send_to_ace(command_text)
+        log(f"Ace command sent. Waiting {WAIT_AFTER_COMMAND}s for it to run...")
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
             json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success}}, f, indent=2)
-        shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
-        log(f"Sent. Waiting {DELAY_BETWEEN_COMMANDS}s...")
+        shutil.move(str(processing_file), str(PROCESSED_DIR / cmd_file.name))
         push_to_github()
-        time.sleep(DELAY_BETWEEN_COMMANDS)
+        time.sleep(WAIT_AFTER_COMMAND)
     except Exception as e:
         log(f"Error: {e}")
+        # Move back to commands if failed
+        try:
+            shutil.move(str(processing_file), str(cmd_file))
+        except: pass
 
-log("Ace Watcher — 6s delay after Ctrl+Space before typing")
+log("Ace Watcher started — one command at a time, 60s between")
 
 while True:
     try:
-        for cmd_file in sorted(COMMANDS_DIR.glob("*.json")):
-            process_command(cmd_file)
+        # Only process ONE command per loop
+        cmd_files = sorted(COMMANDS_DIR.glob("*.json"))
+        if cmd_files:
+            process_command(cmd_files[0])
         push_to_github()
     except Exception as e:
         log(f"Error: {e}")
