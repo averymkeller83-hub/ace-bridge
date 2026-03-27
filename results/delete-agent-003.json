@@ -1,0 +1,13 @@
+{
+  "id": "delete-agent-003",
+  "command": "Maestro is the active app right now. In the Maestro window, find the left sidebar where agents are listed. Right-click on 'Sakur radio' in that sidebar and click Delete from the menu that appears.",
+  "args": [],
+  "timestamp": "2026-03-27T10:38:22.140587",
+  "result": {
+    "success": true,
+    "stdout": "",
+    "stderr": "",
+    "returncode": 0,
+    "prompt_sent": "Maestro is the active app right now. In the Maestro window, find the left sidebar where agents are listed. Right-click on 'Sakur radio' in that sidebar and click Delete from the menu that appears."
+  }
+}
