@@ -1,0 +1,9 @@
+{
+  "id": "start-clawwork-dashboard",
+  "command": "In Maestro run the auto run for Clawwork Dashboard",
+  "timestamp": "2026-03-27T15:08:28.417924",
+  "result": {
+    "success": true,
+    "output": "OK"
+  }
+}
