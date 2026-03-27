@@ -1,0 +1,9 @@
+{
+  "id": "click-geico",
+  "command": "In Chrome click on the GEICO official site link in the search results to go to geico.com",
+  "timestamp": "2026-03-27T15:40:48.656081",
+  "result": {
+    "success": true,
+    "output": "OK"
+  }
+}
