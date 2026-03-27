@@ -1,9 +1,8 @@
 {
   "id": "open-geico",
   "command": "Open Chrome and go to geico.com",
-  "timestamp": "2026-03-27T15:40:03.173255",
+  "timestamp": "2026-03-27T15:40:06.241245",
   "result": {
-    "success": true,
-    "output": "OK"
+    "success": true
   }
 }
