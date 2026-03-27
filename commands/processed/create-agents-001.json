@@ -1,0 +1,7 @@
+{
+  "id": "create-agents-001",
+  "command": "In the Maestro app, click the 'New Agent' button at the bottom of the left sidebar. A dialog will appear. Set the Name to 'Magic Puffs' and the Directory to /Users/averykeller/Desktop/projects/magic-puffs-website. Click Create or Save.",
+  "args": [],
+  "timestamp": "2026-03-27T15:00:00Z",
+  "description": "Create Magic Puffs agent"
+}
