@@ -1,0 +1,8 @@
+{
+  "id": "chrome-setup",
+  "command": "In Google Chrome click OK on the welcome dialog then go to gmail.com",
+  "timestamp": "2026-03-27T16:22:59.942549",
+  "result": {
+    "success": true
+  }
+}
