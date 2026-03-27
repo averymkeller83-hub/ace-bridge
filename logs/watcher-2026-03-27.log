@@ -3669,3 +3669,6 @@
 [2026-03-27 14:38:50] Sending to Ace: In Maestro run the auto run for Magic Puffs
 [2026-03-27 14:38:53] Sent. Waiting 60s...
 [2026-03-27 14:38:53] Sent. Waiting 60s...
+[2026-03-27 14:38:54] Pushed
+[2026-03-27 14:38:54] Pushed
+[2026-03-27 14:38:55] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/ace-test-delay.json'
