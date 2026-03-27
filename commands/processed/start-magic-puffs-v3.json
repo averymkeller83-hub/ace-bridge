@@ -1,0 +1,7 @@
+{
+  "id": "start-magic-puffs-v3",
+  "command": "Open the Maestro app. Click on Magic Puffs in the agent list on the left side. Then press Option+Command+Right Arrow on the keyboard to open the right panel. Wait 1 second. Then click the Auto Run tab on the right side. Then click the Run button. Then click Go.",
+  "args": [],
+  "timestamp": "2026-03-27T17:34:00Z",
+  "description": "Start Magic Puffs using keyboard shortcut for panel"
+}
