@@ -2296,3 +2296,6 @@
 [2026-03-27 13:48:35] Sending to Ace: Click the Go button in the dialog that is open in Maestro
 [2026-03-27 13:48:35] Sending to Ace: Click the Go button in the dialog that is open in Maestro
 [2026-03-27 13:48:36] Command mp-go-btn completed. Result: True
+[2026-03-27 13:48:37] Results pushed to GitHub
+[2026-03-27 13:48:38] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp-go-btn.json'
+[2026-03-27 13:48:38] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp-go-btn.json'
