@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — global Ace AI via Ctrl+Space, no app switching"""
+"""Ace Bridge Watcher — lets commands fully run before proceeding"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -11,7 +11,7 @@ PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 40
+DELAY_BETWEEN_COMMANDS = 60  # wait 60s after each command for Ace to finish
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -26,7 +26,6 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """Press Ctrl+Space to open Ace globally, type command, Enter"""
     try:
         safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
         script = f'''
@@ -36,12 +35,10 @@ tell application "System Events"
     keystroke "{safe}"
     delay 2
     key code 36
+    delay 15
 end tell
 '''
-        result = subprocess.run(
-            ["osascript", "-e", script],
-            capture_output=True, text=True, timeout=60
-        )
+        result = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=90)
         return result.returncode == 0, result.stderr or "OK"
     except Exception as e:
         return False, str(e)
@@ -65,13 +62,13 @@ def process_command(cmd_file):
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
             json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success}}, f, indent=2)
         shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
-        log(f"Done. Waiting {DELAY_BETWEEN_COMMANDS}s...")
+        log(f"Done. Waiting {DELAY_BETWEEN_COMMANDS}s for Ace to finish...")
         push_to_github()
         time.sleep(DELAY_BETWEEN_COMMANDS)
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Watcher — global Ctrl+Space, no app switching")
+log("Ace Watcher — 15s wait after Enter, 60s between commands")
 
 while True:
     try:
