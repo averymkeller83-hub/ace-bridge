@@ -23287,3 +23287,5 @@ After doing this, you may fix the identity used for this commit with:
 [2026-03-27 15:01:10] Pushed
 [2026-03-27 15:01:16] Pushed
 [2026-03-27 15:01:21] Sending to Ace: In Maestro run the auto run for Magic Puffs
+[2026-03-27 15:01:28] Ace command sent. Waiting 60s for it to run...
+[2026-03-27 15:01:28] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_test-ace-app.json'
