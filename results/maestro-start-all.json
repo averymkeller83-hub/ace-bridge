@@ -1,0 +1,10 @@
+{
+  "id": "maestro-start-all",
+  "command": "For each of these 5 agents in Maestro, do the following steps one at a time: 1) Click the agent name in the left sidebar to select it. 2) Click the panel toggle icon in the top right of Maestro to open the right panel. 3) Click the 'Auto Run' tab in the right panel. 4) Click the 'Run' button (it has a play triangle icon). 5) When a configuration dialog appears, click the blue 'Go' button at the bottom right. Do this for: Clawwork Dashboard, Clawwork Earnings, Magic Puffs, Noise Agency. Wait 2 seconds between each agent.",
+  "args": [],
+  "timestamp": "2026-03-27T13:28:01.040650",
+  "result": {
+    "success": false,
+    "error": "[Errno 2] No such file or directory: 'ace'"
+  }
+}
