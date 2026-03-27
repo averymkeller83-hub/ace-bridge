@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — types commands into Ace character by character"""
+"""Ace Bridge Watcher — uses Maestro's built-in Ace bar (Ctrl+Space)"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -11,7 +11,7 @@ PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 30
+DELAY_BETWEEN_COMMANDS = 35
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -26,19 +26,24 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """Activate Maestro, open Ace, type command slowly, press Enter"""
+    """Activate Maestro, press Ctrl+Space ONCE to open Ace bar, type command, Enter"""
     try:
-        # Escape special chars for AppleScript
         safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
-
         script = f'''
+-- Bring Maestro to front
 tell application "Maestro" to activate
 delay 1.5
+
 tell application "System Events"
-    key code 49 using control down
-    delay 3
-    keystroke "{safe}" using {{}}
-    delay 2
+    -- Press Ctrl+Space ONCE to open Ace bar
+    key code 49 using {{control down}}
+    -- Wait for bar to appear
+    delay 2.5
+    -- Type the command
+    keystroke "{safe}"
+    -- Wait for typing to finish
+    delay 1.5
+    -- Press Enter to submit
     key code 36
 end tell
 '''
@@ -75,7 +80,7 @@ def process_command(cmd_file):
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Watcher started — types commands slowly")
+log("Ace Watcher started — Maestro Ctrl+Space bar, single trigger")
 
 while True:
     try:
