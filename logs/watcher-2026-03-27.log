@@ -4153,3 +4153,12 @@
 [2026-03-27 14:55:35] Ace Watcher started — one command at a time, 60s between
 [2026-03-27 14:55:35] Pushed
 [2026-03-27 14:55:35] Pushed
+[2026-03-27 14:55:41] Pushed
+[2026-03-27 14:55:41] Pushed
+[2026-03-27 14:55:41] Pushed
+[2026-03-27 14:55:46] Sending to Ace: In Maestro run the auto run for Magic Puffs
+[2026-03-27 14:55:46] Sending to Ace: In Maestro run the auto run for Magic Puffs
+[2026-03-27 14:55:46] Sending to Ace: In Maestro run the auto run for Magic Puffs
+[2026-03-27 14:55:53] Ace command sent. Waiting 60s for it to run...
+[2026-03-27 14:55:53] Ace command sent. Waiting 60s for it to run...
+[2026-03-27 14:55:53] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_test-lock.json'
