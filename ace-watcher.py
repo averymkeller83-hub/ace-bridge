@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — triggers Ace AI via Ctrl+Space, pastes command instantly"""
+"""Ace Bridge Watcher — activates Maestro first, then triggers Ace via Ctrl+Space"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -26,19 +26,31 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """Copy command to clipboard, open Ace, paste instantly, press Enter"""
+    """1) Activate Maestro. 2) Open Ace via Ctrl+Space. 3) Paste command. 4) Enter."""
     try:
-        # Copy to clipboard first
+        # Copy command to clipboard
         subprocess.run(["pbcopy"], input=command_text, text=True)
         time.sleep(0.3)
-        
-        # Open Ace, wait, paste from clipboard, press Enter
+
         script = '''
+-- Step 1: Bring Maestro to front
+tell application "Maestro" to activate
+delay 1.5
+
+-- Step 2: Open Ace with Ctrl+Space
 tell application "System Events"
     key code 49 using control down
-    delay 2.5
+end tell
+delay 2.5
+
+-- Step 3: Paste command instantly
+tell application "System Events"
     keystroke "v" using command down
-    delay 1
+end tell
+delay 1.5
+
+-- Step 4: Press Enter
+tell application "System Events"
     key code 36
 end tell
 '''
@@ -53,43 +65,30 @@ end tell
 def push_to_github():
     try:
         subprocess.run(["git", "-C", str(REPO_PATH), "add", "-A"], capture_output=True)
-        subprocess.run(["git", "-C", str(REPO_PATH), "commit", "-m", f"Results update {datetime.now().isoformat()}"], capture_output=True)
+        subprocess.run(["git", "-C", str(REPO_PATH), "commit", "-m", f"Results {datetime.now().isoformat()}"], capture_output=True)
         subprocess.run(["git", "-C", str(REPO_PATH), "push"], capture_output=True)
-        log("Results pushed to GitHub")
-    except Exception as e:
-        log(f"Git error: {e}")
+        log("Pushed to GitHub")
+    except: pass
 
 def process_command(cmd_file):
     try:
         with open(cmd_file) as f:
             data = json.load(f)
-        
         cmd_id = data.get("id", "unknown")
         command_text = data.get("command", "")
-        
         log(f"Sending to Ace: {command_text[:100]}")
         success, output = send_to_ace(command_text)
-        
-        result = {
-            "id": cmd_id,
-            "command": command_text,
-            "timestamp": datetime.now().isoformat(),
-            "result": {"success": success, "output": output}
-        }
-        
+        result = {"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success, "output": output}}
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
             json.dump(result, f, indent=2)
-        
         shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
-        log(f"Command {cmd_id} sent. Waiting {DELAY_BETWEEN_COMMANDS}s...")
-        
+        log(f"Done. Waiting {DELAY_BETWEEN_COMMANDS}s...")
         push_to_github()
         time.sleep(DELAY_BETWEEN_COMMANDS)
-        
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Bridge Watcher started — clipboard paste method, 30s between commands")
+log("Ace Watcher started — Maestro focus first, then Ctrl+Space")
 
 while True:
     try:
