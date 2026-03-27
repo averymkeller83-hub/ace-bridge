@@ -1,0 +1,10 @@
+{
+  "id": "start-magic-puffs-slow",
+  "command": "Click on the Maestro app in the dock. Wait 2 seconds. Click on 'Magic Puffs' in the left sidebar. Wait 2 seconds. Click the panel toggle button in the top right of the Maestro window. Wait 2 seconds. Click the 'Auto Run' tab in the right panel. Wait 2 seconds. Click the 'Run' button. Wait 2 seconds. Click the 'Go' button in the dialog that appears.",
+  "args": [],
+  "timestamp": "2026-03-27T13:32:23.306358",
+  "result": {
+    "success": false,
+    "error": "[Errno 2] No such file or directory: 'ace'"
+  }
+}
