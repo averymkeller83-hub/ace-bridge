@@ -2752,3 +2752,6 @@
 [2026-03-27 14:04:31] Sending to Ace: Click on Magic Puffs in the Maestro left sidebar
 [2026-03-27 14:04:31] Sending to Ace: Click on Magic Puffs in the Maestro left sidebar
 [2026-03-27 14:04:34] Command mp5-step1 sent. Waiting 30s...
+[2026-03-27 14:04:35] Results pushed to GitHub
+[2026-03-27 14:04:38] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp5-step1.json'
+[2026-03-27 14:04:38] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp5-step1.json'
