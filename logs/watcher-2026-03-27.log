@@ -1,0 +1,5 @@
+[2026-03-27 10:36:37] Processing command test-001: open
+[2026-03-27 10:36:37] Sending to Ace: open https://www.google.com
+[2026-03-27 10:36:38] Processing command test-001: open
+[2026-03-27 10:36:38] Sending to Ace: open https://www.google.com
+[2026-03-27 10:36:42] Command test-001 completed. Result: True
