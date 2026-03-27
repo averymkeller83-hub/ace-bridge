@@ -5026,3 +5026,6 @@
 [2026-03-27 15:29:05] Sent. Waiting 60s...
 [2026-03-27 15:29:05] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_create-chess-v2.json'
 [2026-03-27 15:29:05] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_create-chess-v2.json'
+[2026-03-27 15:29:06] Pushed
+[2026-03-27 15:29:06] Pushed
+[2026-03-27 15:29:08] Ace command sent. Waiting 60s for it to run...
