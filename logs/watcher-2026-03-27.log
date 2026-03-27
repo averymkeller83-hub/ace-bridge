@@ -37,3 +37,5 @@
 [2026-03-27 10:38:18] Processing command delete-agent-003: Maestro is the active app right now. In the Maestro window, find the left sidebar where agents are listed. Right-click on 'Sakur radio' in that sidebar and click Delete from the menu that appears.
 [2026-03-27 10:38:18] Sending to Ace: Maestro is the active app right now. In the Maestro window, find the left sidebar where agents are listed. Right-click on 'Sakur radio' in that sidebar and click Delete from the menu that appears.
 [2026-03-27 10:38:22] Command delete-agent-003 completed. Result: True
+[2026-03-27 10:38:22] Results pushed to GitHub
+[2026-03-27 10:38:22] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/delete-agent-003.json' -> '/Users/averykeller/ace-bridge/commands/processed/delete-agent-003.json'
