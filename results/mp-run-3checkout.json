@@ -1,9 +1,8 @@
 {
   "id": "mp-run-3checkout",
   "command": "In Maestro run the auto run for Magic Puffs",
-  "timestamp": "2026-03-27T15:04:12.453495",
+  "timestamp": "2026-03-27T15:04:13.322936",
   "result": {
-    "success": true,
-    "output": "OK"
+    "success": true
   }
 }
