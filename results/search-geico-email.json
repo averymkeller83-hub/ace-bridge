@@ -1,0 +1,9 @@
+{
+  "id": "search-geico-email",
+  "command": "Open Gmail in Chrome and search for emails from Geico about a quote",
+  "timestamp": "2026-03-27T15:22:25.722512",
+  "result": {
+    "success": true,
+    "output": "OK"
+  }
+}
