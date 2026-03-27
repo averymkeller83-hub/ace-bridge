@@ -3599,3 +3599,6 @@
 [2026-03-27 14:36:02] Sending to Ace: In Maestro run the auto run for Magic Puffs
 [2026-03-27 14:36:06] Sent. Waiting 60s for Ace to complete...
 [2026-03-27 14:36:06] Sent. Waiting 60s for Ace to complete...
+[2026-03-27 14:36:07] Pushed
+[2026-03-27 14:36:07] Pushed
+[2026-03-27 14:36:22] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/autorun-mp-final.json'
