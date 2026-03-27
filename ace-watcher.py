@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — one command at a time, no race conditions"""
+"""Ace Bridge Watcher — uses Ace.app CLI or AppleScript directly"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -10,7 +10,6 @@ COMMANDS_DIR = REPO_PATH / "commands"
 PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
-LOCK_FILE = REPO_PATH / ".processing"
 POLL_INTERVAL = 5
 WAIT_AFTER_COMMAND = 60
 
@@ -29,13 +28,16 @@ def log(msg):
 def send_to_ace(command_text):
     try:
         safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
+        # Open Ace.app directly, wait for it to load, then type
         script = f'''
+tell application "Ace" to activate
+delay 3
 tell application "System Events"
-    key code 49 using {{control down}}
-    delay 6
-    keystroke "{safe}"
-    delay 1
-    key code 36
+    tell process "Ace"
+        keystroke "{safe}"
+        delay 1
+        key code 36
+    end tell
 end tell
 '''
         result = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=30)
@@ -52,12 +54,11 @@ def push_to_github():
     except: pass
 
 def process_command(cmd_file):
-    # Lock — move file to processing location first
     processing_file = COMMANDS_DIR / f"_processing_{cmd_file.name}"
     try:
         cmd_file.rename(processing_file)
     except:
-        return  # Another process got it first
+        return
 
     try:
         with open(processing_file) as f:
@@ -66,24 +67,22 @@ def process_command(cmd_file):
         command_text = data.get("command", "")
         log(f"Sending to Ace: {command_text[:80]}")
         success, output = send_to_ace(command_text)
-        log(f"Ace command sent. Waiting {WAIT_AFTER_COMMAND}s for it to run...")
+        log(f"Sent. Waiting {WAIT_AFTER_COMMAND}s...")
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
-            json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success}}, f, indent=2)
+            json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success, "output": output}}, f, indent=2)
         shutil.move(str(processing_file), str(PROCESSED_DIR / cmd_file.name))
         push_to_github()
         time.sleep(WAIT_AFTER_COMMAND)
     except Exception as e:
         log(f"Error: {e}")
-        # Move back to commands if failed
         try:
             shutil.move(str(processing_file), str(cmd_file))
         except: pass
 
-log("Ace Watcher started — one command at a time, 60s between")
+log("Ace Watcher — using Ace.app directly")
 
 while True:
     try:
-        # Only process ONE command per loop
         cmd_files = sorted(COMMANDS_DIR.glob("*.json"))
         if cmd_files:
             process_command(cmd_files[0])
