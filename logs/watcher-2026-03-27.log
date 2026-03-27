@@ -4465,3 +4465,6 @@
 [2026-03-27 15:08:28] Sent. Waiting 60s...
 [2026-03-27 15:08:28] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_start-clawwork-dashboard.json'
 [2026-03-27 15:08:28] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_start-clawwork-dashboard.json'
+[2026-03-27 15:08:29] Pushed
+[2026-03-27 15:08:29] Pushed
+[2026-03-27 15:08:31] Ace command sent. Waiting 60s for it to run...
