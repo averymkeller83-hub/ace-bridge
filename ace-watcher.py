@@ -1,166 +1,106 @@
 #!/usr/bin/env python3
-"""
-Ace Bridge Watcher
-Runs on your local computer, watches for commands from Jarvis
-"""
+"""Ace Bridge Watcher — triggers Ace AI via Ctrl+Space"""
 
-import os
-import sys
-import time
 import json
+import os
 import subprocess
+import time
+import shutil
 from pathlib import Path
 from datetime import datetime
 
-# Configuration
-REPO_PATH = Path.home() / "ace-bridge"  # Change this to your repo path
+REPO_PATH = Path.home() / "ace-bridge"
 COMMANDS_DIR = REPO_PATH / "commands"
+PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
-POLL_INTERVAL = 5  # seconds
+POLL_INTERVAL = 5
 
-def setup():
-    """Ensure directories exist"""
-    for dir_path in [COMMANDS_DIR, RESULTS_DIR, LOGS_DIR]:
-        dir_path.mkdir(parents=True, exist_ok=True)
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
-def log(message):
-    """Log to file and console"""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_entry = f"[{timestamp}] {message}"
-    print(log_entry)
-    
+def log(msg):
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line = f"[{ts}] {msg}"
+    print(line, flush=True)
     log_file = LOGS_DIR / f"watcher-{datetime.now().strftime('%Y-%m-%d')}.log"
     with open(log_file, "a") as f:
-        f.write(log_entry + "\n")
+        f.write(line + "\n")
 
-def execute_ace(command, args=None):
-    """Execute Ace with given command"""
+def send_to_ace(command_text):
+    """Open Ace with Ctrl+Space, type command, press Enter"""
     try:
-        # Build Ace command
-        ace_cmd = ["ace"]
-        if command:
-            ace_cmd.append(command)
-        if args:
-            ace_cmd.extend(args)
-        
-        log(f"Executing: {' '.join(ace_cmd)}")
-        
-        # Run Ace
+        script = f'''
+tell application "System Events"
+    key code 49 using control down
+    delay 1.5
+    keystroke "{command_text}"
+    delay 0.5
+    key code 36
+end tell
+'''
         result = subprocess.run(
-            ace_cmd,
-            capture_output=True,
-            text=True,
-            timeout=300  # 5 minute timeout
+            ["osascript", "-e", script],
+            capture_output=True, text=True, timeout=30
         )
-        
-        return {
-            "success": result.returncode == 0,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "returncode": result.returncode
-        }
-    except subprocess.TimeoutExpired:
-        return {"success": False, "error": "Command timed out"}
+        if result.returncode == 0:
+            return True, "Sent to Ace"
+        else:
+            return False, result.stderr
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return False, str(e)
 
-def process_command(command_file):
-    """Process a single command file"""
+def push_to_github():
     try:
-        with open(command_file, "r") as f:
-            command_data = json.load(f)
+        subprocess.run(["git", "-C", str(REPO_PATH), "add", "-A"], capture_output=True)
+        subprocess.run(["git", "-C", str(REPO_PATH), "commit", "-m", f"Results update {datetime.utcnow().isoformat()}"], capture_output=True)
+        subprocess.run(["git", "-C", str(REPO_PATH), "push"], capture_output=True)
+        log("Results pushed to GitHub")
+    except Exception as e:
+        log(f"Git error: {e}")
+
+def process_command(cmd_file):
+    try:
+        with open(cmd_file) as f:
+            data = json.load(f)
         
-        command_id = command_data.get("id", "unknown")
-        ace_command = command_data.get("command", "")
-        ace_args = command_data.get("args", [])
+        cmd_id = data.get("id", "unknown")
+        command_text = data.get("command", "")
         
-        log(f"Processing command {command_id}: {ace_command}")
+        log(f"Processing command {cmd_id}: {command_text[:80]}")
         
-        # Execute via Ace
-        result = execute_ace(ace_command, ace_args)
+        success, output = send_to_ace(command_text)
         
-        # Write result
-        result_file = RESULTS_DIR / f"{command_id}.json"
-        result_data = {
-            "id": command_id,
-            "command": ace_command,
-            "args": ace_args,
-            "timestamp": datetime.now().isoformat(),
-            "result": result
+        result = {
+            "id": cmd_id,
+            "command": command_text,
+            "timestamp": datetime.utcnow().isoformat(),
+            "result": {"success": success, "output": output}
         }
         
+        result_file = RESULTS_DIR / f"{cmd_id}.json"
         with open(result_file, "w") as f:
-            json.dump(result_data, f, indent=2)
+            json.dump(result, f, indent=2)
         
-        # Archive processed command
-        archive_dir = COMMANDS_DIR / "processed"
-        archive_dir.mkdir(exist_ok=True)
-        command_file.rename(archive_dir / command_file.name)
+        # Move to processed
+        dest = PROCESSED_DIR / cmd_file.name
+        shutil.move(str(cmd_file), str(dest))
+        log(f"Command {cmd_id} completed. Result: {success}")
         
-        log(f"Command {command_id} completed. Result: {result['success']}")
+        push_to_github()
         
     except Exception as e:
         log(f"Error processing command: {e}")
 
-def watch():
-    """Main watch loop"""
-    log("Ace Bridge Watcher started")
-    log(f"Watching: {COMMANDS_DIR}")
-    log(f"Results: {RESULTS_DIR}")
-    log("Press Ctrl+C to stop")
-    
-    try:
-        while True:
-            # Check for new command files
-            command_files = sorted(COMMANDS_DIR.glob("*.json"))
-            
-            for cmd_file in command_files:
-                if cmd_file.is_file():
-                    process_command(cmd_file)
-            
-            # Push results to GitHub (optional - requires git setup)
-            push_results()
-            
-            time.sleep(POLL_INTERVAL)
-            
-    except KeyboardInterrupt:
-        log("Watcher stopped by user")
+log("Ace Bridge Watcher started (Ctrl+Space trigger)")
 
-def push_results():
-    """Push results to GitHub (if git is configured)"""
+while True:
     try:
-        os.chdir(REPO_PATH)
-        
-        # Check if there are changes
-        status = subprocess.run(
-            ["git", "status", "--porcelain"],
-            capture_output=True,
-            text=True
-        )
-        
-        if status.stdout.strip():
-            subprocess.run(["git", "add", "."], check=True)
-            subprocess.run(
-                ["git", "commit", "-m", f"Results update {datetime.now().isoformat()}"],
-                check=True
-            )
-            subprocess.run(["git", "push"], check=True)
-            log("Results pushed to GitHub")
-            
+        for cmd_file in sorted(COMMANDS_DIR.glob("*.json")):
+            process_command(cmd_file)
+            time.sleep(2)
+        push_to_github()
     except Exception as e:
-        # Silently fail - not critical
-        pass
-
-if __name__ == "__main__":
-    setup()
-    
-    # Allow custom repo path via argument
-    if len(sys.argv) > 1:
-        REPO_PATH = Path(sys.argv[1])
-        COMMANDS_DIR = REPO_PATH / "commands"
-        RESULTS_DIR = REPO_PATH / "results"
-        LOGS_DIR = REPO_PATH / "logs"
-        setup()
-    
-    watch()
+        log(f"Error: {e}")
+    time.sleep(POLL_INTERVAL)
