@@ -3092,3 +3092,6 @@
 [2026-03-27 14:16:07] Sending to Ace: Click the Auto Run tab in the right panel
 [2026-03-27 14:16:10] Done. Waiting 40s...
 [2026-03-27 14:16:10] Done. Waiting 40s...
+[2026-03-27 14:16:11] Pushed
+[2026-03-27 14:16:11] Pushed
+[2026-03-27 14:16:12] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/mp9-autorun-tab.json'
