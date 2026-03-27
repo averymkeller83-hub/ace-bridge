@@ -1,0 +1,13 @@
+{
+  "id": "test-control-click-001",
+  "command": "In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.",
+  "args": [],
+  "timestamp": "2026-03-27T10:59:15.589234",
+  "result": {
+    "success": true,
+    "stdout": "",
+    "stderr": "",
+    "returncode": 0,
+    "prompt_sent": "In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'."
+  }
+}

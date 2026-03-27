@@ -421,3 +421,9 @@
 [2026-03-27 10:58:59] Results pushed to GitHub
 [2026-03-27 10:59:03] Results pushed to GitHub
 [2026-03-27 10:59:05] Results pushed to GitHub
+[2026-03-27 10:59:09] Results pushed to GitHub
+[2026-03-27 10:59:10] Processing command test-control-click-001: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
+[2026-03-27 10:59:10] Sending to Ace: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
+[2026-03-27 10:59:14] Processing command test-control-click-001: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
+[2026-03-27 10:59:14] Sending to Ace: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
+[2026-03-27 10:59:15] Command test-control-click-001 completed. Result: True
