@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — open Ace, type, Enter, then STOP and wait"""
+"""Ace Bridge Watcher — longer delay after opening Ace"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -28,11 +28,10 @@ def log(msg):
 def send_to_ace(command_text):
     try:
         safe = command_text.replace('\\', '\\\\').replace('"', '\\"')
-        # ONLY: open Ace, type, Enter. Nothing after that.
         script = f'''
 tell application "System Events"
     key code 49 using {{control down}}
-    delay 3
+    delay 6
     keystroke "{safe}"
     delay 1
     key code 36
@@ -62,13 +61,13 @@ def process_command(cmd_file):
         with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
             json.dump({"id": cmd_id, "command": command_text, "timestamp": datetime.now().isoformat(), "result": {"success": success}}, f, indent=2)
         shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
-        log(f"Sent. Waiting {DELAY_BETWEEN_COMMANDS}s for Ace to complete...")
+        log(f"Sent. Waiting {DELAY_BETWEEN_COMMANDS}s...")
         push_to_github()
         time.sleep(DELAY_BETWEEN_COMMANDS)
     except Exception as e:
         log(f"Error: {e}")
 
-log("Ace Watcher — open, type, Enter, stop. 60s wait.")
+log("Ace Watcher — 6s delay after Ctrl+Space before typing")
 
 while True:
     try:
