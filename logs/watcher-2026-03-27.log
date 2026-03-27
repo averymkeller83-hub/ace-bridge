@@ -427,3 +427,5 @@
 [2026-03-27 10:59:14] Processing command test-control-click-001: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
 [2026-03-27 10:59:14] Sending to Ace: In the Maestro app left sidebar, hold the Control key and click on the agent named 'Noise Agency'. A context menu should appear. Click 'Remove Agent'. Then in the confirmation dialog, click 'Agent Only'.
 [2026-03-27 10:59:15] Command test-control-click-001 completed. Result: True
+[2026-03-27 10:59:16] Results pushed to GitHub
+[2026-03-27 10:59:19] Error processing command: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/test-control-click-001.json' -> '/Users/averykeller/ace-bridge/commands/processed/test-control-click-001.json'
