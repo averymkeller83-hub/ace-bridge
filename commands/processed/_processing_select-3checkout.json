@@ -1,0 +1,5 @@
+{
+  "id": "select-3checkout",
+  "command": "In Maestro in the Auto Run configuration dialog change the document from 2_SHOP to 3_CHECKOUT then click Go",
+  "timestamp": "2026-03-27T19:06:00Z"
+}
