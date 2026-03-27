@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ace Bridge Watcher — triggers Ace AI via Ctrl+Space, one command at a time"""
+"""Ace Bridge Watcher — triggers Ace AI via Ctrl+Space, pastes command instantly"""
 
 import json, os, subprocess, time, shutil
 from pathlib import Path
@@ -11,7 +11,7 @@ PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 30  # seconds between each command
+DELAY_BETWEEN_COMMANDS = 30
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -26,16 +26,19 @@ def log(msg):
         f.write(line + "\n")
 
 def send_to_ace(command_text):
-    """Open Ace with Ctrl+Space ONCE, type command, press Enter"""
+    """Copy command to clipboard, open Ace, paste instantly, press Enter"""
     try:
-        # Escape quotes in command
-        safe_cmd = command_text.replace('"', '\\"').replace("'", "\\'")
-        script = f'''
+        # Copy to clipboard first
+        subprocess.run(["pbcopy"], input=command_text, text=True)
+        time.sleep(0.3)
+        
+        # Open Ace, wait, paste from clipboard, press Enter
+        script = '''
 tell application "System Events"
     key code 49 using control down
-    delay 3
-    keystroke "{safe_cmd}"
-    delay 2
+    delay 2.5
+    keystroke "v" using command down
+    delay 1
     key code 36
 end tell
 '''
@@ -74,26 +77,23 @@ def process_command(cmd_file):
             "result": {"success": success, "output": output}
         }
         
-        result_file = RESULTS_DIR / f"{cmd_id}.json"
-        with open(result_file, "w") as f:
+        with open(RESULTS_DIR / f"{cmd_id}.json", "w") as f:
             json.dump(result, f, indent=2)
         
-        dest = PROCESSED_DIR / cmd_file.name
-        shutil.move(str(cmd_file), str(dest))
-        log(f"Command {cmd_id} done. Waiting {DELAY_BETWEEN_COMMANDS}s before next...")
+        shutil.move(str(cmd_file), str(PROCESSED_DIR / cmd_file.name))
+        log(f"Command {cmd_id} sent. Waiting {DELAY_BETWEEN_COMMANDS}s...")
         
         push_to_github()
         time.sleep(DELAY_BETWEEN_COMMANDS)
         
     except Exception as e:
-        log(f"Error processing command: {e}")
+        log(f"Error: {e}")
 
-log("Ace Bridge Watcher started — Ctrl+Space trigger, 15s between commands")
+log("Ace Bridge Watcher started — clipboard paste method, 30s between commands")
 
 while True:
     try:
-        cmd_files = sorted(COMMANDS_DIR.glob("*.json"))
-        for cmd_file in cmd_files:
+        for cmd_file in sorted(COMMANDS_DIR.glob("*.json")):
             process_command(cmd_file)
         push_to_github()
     except Exception as e:
