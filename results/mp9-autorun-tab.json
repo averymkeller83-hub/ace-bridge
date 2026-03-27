@@ -1,0 +1,8 @@
+{
+  "id": "mp9-autorun-tab",
+  "command": "Click the Auto Run tab in the right panel",
+  "timestamp": "2026-03-27T14:16:10.501218",
+  "result": {
+    "success": true
+  }
+}
