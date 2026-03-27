@@ -11,7 +11,7 @@ PROCESSED_DIR = REPO_PATH / "commands" / "processed"
 RESULTS_DIR = REPO_PATH / "results"
 LOGS_DIR = REPO_PATH / "logs"
 POLL_INTERVAL = 5
-DELAY_BETWEEN_COMMANDS = 15  # seconds between each command
+DELAY_BETWEEN_COMMANDS = 30  # seconds between each command
 
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -33,9 +33,9 @@ def send_to_ace(command_text):
         script = f'''
 tell application "System Events"
     key code 49 using control down
-    delay 2
+    delay 3
     keystroke "{safe_cmd}"
-    delay 1
+    delay 2
     key code 36
 end tell
 '''
