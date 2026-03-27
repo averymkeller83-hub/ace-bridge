@@ -1,0 +1,7 @@
+{
+  "id": "ace-instructions",
+  "command": "IMPORTANT SYSTEM NOTE: This computer is a MacBook. It does not have a right mouse button. To right-click on any element, always use Control+Click (hold the Control key while clicking). Never use right-click. Always use Control+Click instead.",
+  "args": [],
+  "timestamp": "2026-03-27T15:00:00Z",
+  "description": "System note: use Control+Click instead of right-click on MacBook"
+}
