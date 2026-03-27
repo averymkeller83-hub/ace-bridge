@@ -23370,3 +23370,5 @@ After doing this, you may fix the identity used for this commit with:
 [2026-03-27 15:10:33] Pushed
 [2026-03-27 15:10:39] Pushed
 [2026-03-27 15:10:44] Sending to Ace: In Maestro run the auto run for Noise Agency
+[2026-03-27 15:10:51] Ace command sent. Waiting 60s for it to run...
+[2026-03-27 15:10:51] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_start-noise-agency.json'
