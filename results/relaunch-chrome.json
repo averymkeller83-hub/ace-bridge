@@ -1,0 +1,8 @@
+{
+  "id": "relaunch-chrome",
+  "command": "Quit Google Chrome completely then reopen it",
+  "timestamp": "2026-03-27T16:12:25.974016",
+  "result": {
+    "success": true
+  }
+}
