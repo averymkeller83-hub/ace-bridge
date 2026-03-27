@@ -1,0 +1,8 @@
+{
+  "id": "fix-dashboard",
+  "command": "In Maestro open the auto run for Clawwork Dashboard, change the document to 3_POLISH which has 5 tasks, then click Go",
+  "timestamp": "2026-03-27T15:11:22.849456",
+  "result": {
+    "success": true
+  }
+}
