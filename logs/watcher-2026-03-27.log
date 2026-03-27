@@ -5397,3 +5397,6 @@
 [2026-03-27 15:42:51] Sent. Waiting 60s...
 [2026-03-27 15:42:51] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_navigate-geico.json'
 [2026-03-27 15:42:51] Error: [Errno 2] No such file or directory: '/Users/averykeller/ace-bridge/commands/_processing_navigate-geico.json'
+[2026-03-27 15:42:53] Pushed
+[2026-03-27 15:42:53] Pushed
+[2026-03-27 15:42:55] Ace command sent. Waiting 60s for it to run...

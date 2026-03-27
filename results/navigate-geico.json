@@ -1,9 +1,8 @@
 {
   "id": "navigate-geico",
   "command": "In Chrome press Command+L to select the address bar, then type geico.com and press Enter to go to that website",
-  "timestamp": "2026-03-27T15:42:51.993981",
+  "timestamp": "2026-03-27T15:42:55.252940",
   "result": {
-    "success": true,
-    "output": "OK"
+    "success": true
   }
 }
