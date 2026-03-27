@@ -1,7 +1,7 @@
 {
   "id": "test-ace-trigger",
   "command": "Click on the Maestro app in the dock",
-  "timestamp": "2026-03-27T17:42:33.997663",
+  "timestamp": "2026-03-27T17:42:34.978495",
   "result": {
     "success": true,
     "output": "Sent to Ace"
