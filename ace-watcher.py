@@ -171,6 +171,13 @@ end tell
 
 def push_to_github():
     try:
+        # Only push if there are actual uncommitted changes
+        status = subprocess.run(
+            ["git", "-C", str(REPO_PATH), "status", "--porcelain"],
+            capture_output=True, text=True
+        )
+        if not status.stdout.strip():
+            return  # No changes, skip push
         subprocess.run(["git", "-C", str(REPO_PATH), "add", "-A"], capture_output=True)
         subprocess.run(["git", "-C", str(REPO_PATH), "commit", "-m", f"Results {datetime.now().isoformat()}"], capture_output=True)
         subprocess.run(["git", "-C", str(REPO_PATH), "push"], capture_output=True)
